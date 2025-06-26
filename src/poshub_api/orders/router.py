@@ -1,10 +1,10 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException
 
-from poshub_api.orders.exceptions import OrderAlreadyExistsException, OrderNotFoundException
-from poshub_api.orders.schemas import OrderIn
-from poshub_api.orders.service import OrderService
-from poshub_api.orders.auth import validate_jwt_and_scope
+from .exceptions import OrderAlreadyExistsException, OrderNotFoundException
+from .schemas import OrderIn
+from .service import OrderService
+from .auth import validate_jwt_and_scope
 
 router = APIRouter()
 

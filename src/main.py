@@ -41,7 +41,7 @@ async def global_exception_handler(request: Request, exc: Exception):
         content={
             "detail": "An unexpected error occurred",
             "path": request.url.path,
-            "status_code": exc.status_code,
+            "status_code": 500,
         }
     )
 

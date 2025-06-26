@@ -19,6 +19,18 @@ dependencies = [
 packages = [{include = "poshub_api", from = "src"}]
 
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+pytest-asyncio = "^1.0.0"
+asgi-lifespan = "^2.1.0"
+coverage = "^7.9.1"
+trio = "^0.30.0"
+
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

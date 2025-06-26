@@ -1,12 +1,15 @@
-import pdb
+import os
+
+from dotenv import load_dotenv
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 from typing import List, Callable
 
-# Secret and algorithm should be set securely in production
-JWT_SECRET = "a-string-secret-at-least-256-bits-long"
-JWT_ALGORITHM = "HS256"
+load_dotenv()
+
+JWT_SECRET = os.getenv("JWT_SECRET")
+JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
 
 security = HTTPBearer()
 
