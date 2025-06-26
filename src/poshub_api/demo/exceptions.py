@@ -1,0 +1,3 @@
+
+class ExternalDemoException(Exception):
+    ...    
