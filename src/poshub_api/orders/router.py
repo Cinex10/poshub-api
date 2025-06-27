@@ -1,13 +1,13 @@
 from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException
 
+from .auth import validate_jwt_and_scope
 from .exceptions import OrderAlreadyExistsException, OrderNotFoundException
 from .schemas import OrderIn
 from .service import OrderService
-from .auth import validate_jwt_and_scope
 
 router = APIRouter()
-
 
 
 @router.post("/orders", status_code=201)
@@ -23,12 +23,14 @@ def create_order(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @router.get("/orders/{order_id}")
-def get_order(order_id: str, service: Annotated[OrderService, Depends(OrderService)]):
+def get_order(
+    order_id: str, service: Annotated[OrderService, Depends(OrderService)]
+):
     try:
         return service.get_order(order_id)
     except OrderNotFoundException as e:
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-

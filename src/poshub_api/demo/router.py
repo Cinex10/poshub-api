@@ -1,10 +1,12 @@
 from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException
 
 from poshub_api.demo.exceptions import ExternalDemoException
 from poshub_api.demo.service import DemoService
 
 router = APIRouter()
+
 
 @router.get("/demo/external-demo")
 async def external_demo(service: Annotated[DemoService, Depends(DemoService)]):

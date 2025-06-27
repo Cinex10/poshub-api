@@ -1,10 +1,12 @@
 from typing import Annotated
+
 from fastapi import Depends
 from httpx import AsyncClient
 
 from poshub_api.demo.client import get_http, safe_get
 from poshub_api.demo.exceptions import ExternalDemoException
 from poshub_api.demo.schemas import ProductOut
+
 
 class DemoService:
     def __init__(self, client: Annotated[AsyncClient, Depends(get_http)]):

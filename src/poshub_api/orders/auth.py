@@ -1,10 +1,10 @@
 import os
+from typing import Callable, List
 
+import jwt
 from dotenv import load_dotenv
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-import jwt
-from typing import List, Callable
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 load_dotenv()
 
@@ -13,8 +13,11 @@ JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
 
 security = HTTPBearer()
 
+
 def validate_jwt_and_scope(required_scopes: List[str]) -> Callable:
-    def dependency(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    def dependency(
+        credentials: HTTPAuthorizationCredentials = Depends(security),
+    ):
         token = credentials.credentials
         try:
             payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
@@ -29,7 +32,10 @@ def validate_jwt_and_scope(required_scopes: List[str]) -> Callable:
                 model, action = scope.split(":")
                 raise HTTPException(
                     status_code=status.HTTP_403_FORBIDDEN,
-                    detail=f"User does not have permission to {action} {model}",
+                    detail="User does not have permission to {} {}".format(
+                        action, model
+                    ),
                 )
         return payload
-    return dependency 
+
+    return dependency

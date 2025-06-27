@@ -1,11 +1,13 @@
-from fastapi import HTTPException
-from poshub_api.orders.exceptions import OrderAlreadyExistsException, OrderNotFoundException
+from poshub_api.orders.exceptions import (
+    OrderAlreadyExistsException,
+    OrderNotFoundException,
+)
 from poshub_api.orders.schemas import OrderIn, OrderOut
-
 
 orders = []
 
-class OrderService: 
+
+class OrderService:
 
     def create_order(self, order: OrderIn) -> OrderOut:
         if order.order_id in [o.order_id for o in orders]:
