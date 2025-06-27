@@ -21,8 +21,8 @@ jobs:
     
     - name: Setup environment variables
       run: |
-        echo "JWT_SECRET=${secrets.JWT_SECRET}" >> $GITHUB_ENV
-        echo "JWT_ALGORITHM=${secrets.JWT_ALGORITHM}" >> $GITHUB_ENV
+        echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
+        echo "JWT_ALGORITHM=${{ secrets.JWT_ALGORITHM }}" >> $GITHUB_ENV
 
     - name: Install poetry
       run: |
@@ -41,8 +41,11 @@ jobs:
         poetry run flake8 .
 
     - name: Run tests
+      env:
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        JWT_ALGORITHM: ${{ secrets.JWT_ALGORITHM }}
       run: |
-        poetry run coverage run -m pytest
+          poetry run coverage run -m pytest
     
     - name: Check coverage
       run: |
