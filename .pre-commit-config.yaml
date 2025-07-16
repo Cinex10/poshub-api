@@ -1,14 +1,40 @@
 repos: 
-  - repo: https://github.com/pycqa/isort
-    rev: 6.0.1
+  # - repo: https://github.com/pycqa/isort
+  #   rev: 6.0.1
+  #   hooks:
+  #     - id: isort
+  #       name: isort
+  # - repo: https://github.com/psf/black-pre-commit-mirror # local
+  #   rev: 25.1.0
+  #   hooks:
+  #     - id: black
+  # - repo: https://github.com/pycqa/flake8
+  #   rev: 7.3.0
+  #   hooks:
+  #     - id: flake8
+  - repo: local
     hooks:
       - id: isort
         name: isort
-  - repo: https://github.com/psf/black-pre-commit-mirror # local
-    rev: 25.1.0
-    hooks:
+        entry: isort .
+        language: python
+        files: .
+        stages: [pre-commit]
+        pass_filenames: false
+        always_run: true
       - id: black
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.3.0
-    hooks:
+        name: black
+        entry: black .
+        language: python
+        files: .
+        stages: [pre-commit]
+        pass_filenames: false
+        always_run: true
       - id: flake8
+        name: flake8
+        entry: flake8 .
+        language: python
+        files: .
+        stages: [pre-commit]
+        pass_filenames: false
+        always_run: true
